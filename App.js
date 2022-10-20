@@ -1,43 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
+import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View, Button, Pressable} from 'react-native';
+import {connect, Provider} from 'react-redux';
+import {applyMiddleware, compose, createStore} from 'redux';
+import reducers from './redux/reducers'
 import ReceiptList from "./components/receiptList";
 import {useState} from "react";
+import thunk from "redux-thunk";
+import MyButton from './components/MyButton';
+import {getAllReceipts} from "./redux/actions";
+import MainWrapper from "./mainWrapper";
 
-export default function App() {
-  const [isListOpened, setIsListOpened] = useState(false);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
-  const onButtonClick = () => {
-    setIsListOpened(!isListOpened)
-  }
+const App = (props) => {
 
-  return (
-    <View style={styles.container}>
-      <Pressable onPress={onButtonClick} style={styles.button}>
-        <Text style={styles.buttonText}>
-          {isListOpened ? 'hide receipts' : 'show all receipts'}
-        </Text>
-      </Pressable>
-
-      {isListOpened && <ReceiptList/>}
-
-    </View>
-  );
+    return (
+        <Provider store={store}>
+            <MainWrapper/>
+        </Provider>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 50,
-    paddingHorizontal: 15
-  },
-  button: {
-    width: "40%",
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: '#ABFCCDFF',
-    marginBottom: 10
-  },
-  buttonText: {
-    textTransform: "capitalize",
-    textAlign: "center"
-  }
-});
+
+export default App;

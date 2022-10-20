@@ -1,11 +1,18 @@
-import {Text, View, StyleSheet} from "react-native";
+import {Text, View, StyleSheet, Pressable, TouchableOpacity, Alert} from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 
-const ReceiptItem = ({text}) => {
+const ReceiptItem = ({text, onItemDelete, id}) => {
     return(
         <View style={styles.receiptItem}>
             <Text>
                 {text}
             </Text>
+            <Pressable onPress={() => {
+                onItemDelete(id)
+                Alert.alert('You clicked to delete item', `Its id: ${id}`)
+            }}>
+                <MaterialIcons name={'delete'} size={24} color={'red'}/>
+            </Pressable>
         </View>
     )
 }
@@ -15,7 +22,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#E6E6FAFF',
         padding: 10,
         marginBottom: 10,
-        borderRadius: 5
+        borderRadius: 5,
+        flexDirection: "row",
+        justifyContent: "space-between"
     }
 })
 
