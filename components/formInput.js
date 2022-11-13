@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import {Text, View, TextInput, StyleSheet} from 'react-native'
 
-const FormInput = (props) => {
-    const {touched, error} = props.meta;
+const FormInput = ({input, label, meta}) => {
+    const {touched, error} = meta;
     const [focus, setFocus] = useState(false);
 
     const isErrorVisible = () => {
@@ -13,14 +13,15 @@ const FormInput = (props) => {
 
     return (
         <View>
-            <Text style={styles.label}>{props.label}</Text>
+            <Text style={styles.label}>{label}</Text>
             <View>
                 <TextInput
-                    {...props}
-                    value={props.input.value}
-                    onChangeText={props.input.onChange}
+                    {...input}
+                    defaultValue={input.defaultValue}
+                    value={input.value}
+                    onChangeText={input.onChange}
                     onFocus={() => setFocus(true)}
-                    onBlur={props.input.onBlur}
+                    onBlur={input.onBlur}
                     style={focus ? styles.focusInput : styles.input}
                 />
             </View>

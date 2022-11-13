@@ -22,6 +22,7 @@ const Form = (props) => {
                     <Field name={'receiptText'}
                            component={FormInput}
                            label={props.label}
+                           {...props}
                     />
                 </View>
 
@@ -45,10 +46,9 @@ const styles = StyleSheet.create({
     modalWrapper: {
         backgroundColor: '#fff',
         flex: 1,
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: "center",
-        marginBottom: 100
+        paddingBottom: 100
     },
     fields: {
         width: Dimensions.get("window").width * 0.75,

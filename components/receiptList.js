@@ -5,7 +5,7 @@ import ReceiptItem from "./receiptItem";
 import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {connect} from "react-redux";
-import {deleteReceiptByID} from "../redux/actions";
+import {deleteReceiptByID, openUpdateForm} from "../redux/actions";
 
 const ReceiptList = (props) => {
     const [fontsLoaded] = useFonts({
@@ -13,6 +13,9 @@ const ReceiptList = (props) => {
     });
 
     const onReceiptDelete = (id) => props.deleteReceiptByID(id).catch(err => log(err));
+    const onReceiptUpdate = (text, id) => {
+        props.openUpdateForm(id, text)
+    }
 
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
@@ -27,6 +30,7 @@ const ReceiptList = (props) => {
         return <ReceiptItem text={itemData.item.text}
                             onItemDelete={onReceiptDelete}
                             id={itemData.item.id}
+                            onItemUpdate={onReceiptUpdate}
         />
     }
 
@@ -47,7 +51,7 @@ const mapStateToProps = state => {
         receipts: state.receipts
     }
 }
-export default connect(mapStateToProps, {deleteReceiptByID})(ReceiptList);
+export default connect(mapStateToProps, {deleteReceiptByID, openUpdateForm})(ReceiptList);
 
 const styles = StyleSheet.create({
     Heading: {
