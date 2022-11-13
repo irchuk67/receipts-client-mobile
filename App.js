@@ -18,6 +18,7 @@ const App = (props) => {
     return (
         <Provider store={store}>
             <MainWrapper/>
+
         </Provider>
     );
 }

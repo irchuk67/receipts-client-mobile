@@ -9,7 +9,6 @@ const ReceiptItem = ({text, onItemDelete, id}) => {
             </Text>
             <Pressable onPress={() => {
                 onItemDelete(id)
-                Alert.alert('You clicked to delete item', `Its id: ${id}`)
             }}>
                 <MaterialIcons name={'delete'} size={24} color={'red'}/>
             </Pressable>

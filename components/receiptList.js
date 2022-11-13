@@ -24,7 +24,6 @@ const ReceiptList = (props) => {
         return null;
     }
     const renderItem = itemData => {
-        console.log(itemData)
         return <ReceiptItem text={itemData.item.text}
                             onItemDelete={onReceiptDelete}
                             id={itemData.item.id}
